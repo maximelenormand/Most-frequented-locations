@@ -68,7 +68,7 @@ If you use this code, please cite:
 Louail T, Lenormand M, Murillo Arias M & Ramasco JJ (2015) Crowdsourcing the Robin Hood effect in the city. *Arxiv e-print*, arXiv: .
 
 If you need help, find a bug, want to give me advice or feedback, please contact me!
-You can reach me at maxime[at]ifisc.uib-csic.es
+You can reach me at maxime.lenormand[at]irstea.fr
 
 ## References
 
