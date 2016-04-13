@@ -1,8 +1,8 @@
 """
 Extract Home and Work locations from individual spatio-temporal trajectories
 
-This script returns the location most frequented by an individual (called MFL) during daytime and nighttime
-according to a certain time window. The MFL during a given time windows is defined as the  location in which 
+This script returns the location most frequented by an individual (called MFL) during weekdays' daytime and nighttime
+according to a certain time window. The MFL during a given time windows is defined as the location in which 
 the individual has spent most of his/her time. In this algorithm, two scales are considered, hours and days. 
 Hopefully, for a given individual, the MFLs detected at the two scales should be the same.
 
@@ -313,7 +313,7 @@ for line in input_file:
         NbConsMonths = 1
 
     #Home    
-    if (hour >= minH) or (hour <= maxH) and (weekday < 5):
+    if (((hour >= minH) or (hour <= maxH)) and (weekday < 5)):
         #If new day increase the counter                
         if (not (NbHday.__contains__(YMD))):
             NbHday[YMD]=1
@@ -338,7 +338,7 @@ for line in input_file:
             Hhour[loc][1][YMDH] = 0
             
     #Work
-    if (hour >= minW) and (hour <= maxW) and (weekday < 5):
+    if (((hour >= minW) and (hour <= maxW)) and (weekday < 5)):
         #If new day increase the counter                
         if (not (NbWday.__contains__(YMD))):
             NbWday[YMD]=1

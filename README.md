@@ -4,10 +4,11 @@ Extract Most Frequented Locations from individual spatio-temporal trajectories
  Copyright 2015 Maxime Lenormand. All rights reserved. Code under License GPLv3.
 ______________________________________________________________________________________
 
-This script returns the location most frequented by an individual (called MFL) during daytime and nighttime
+This script returns the location most frequented by an individual (called MFL) during  weekdays' daytime and nighttime
 according to a certain time window. The MFL during a given time windows is defined as the  location in which 
 the individual has spent most of his/her time. In this algorithm, two scales are considered, hours and days. 
 Hopefully, for a given individual, the MFLs detected at the two scales should be the same.
+
 ## Input
 
 The algorithm takes as input a 6 columns csv file with column names, **the value separator is a semicolon ";"**. Each row of the file represents a spatio-temporal position of an individual's trajectory. The time is given by the columns 2 to 5 (year, month, day and hour).
