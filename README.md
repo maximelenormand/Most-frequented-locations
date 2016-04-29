@@ -66,13 +66,13 @@ You can run the code using the command:
 
 If you use this code, please cite:
 
-Louail T, Lenormand M, Murillo Arias M & Ramasco JJ (2015) Crowdsourcing the Robin Hood effect in the city. *Arxiv e-print*, arXiv: .
+Louail T, Lenormand M, Murillo Arias M & Ramasco JJ (2015) Crowdsourcing the Robin Hood effect in the city. *Arxiv e-print*, arXiv:1604.08394.
 
 If you need help, find a bug, want to give me advice or feedback, please contact me!
 You can reach me at maxime.lenormand[at]irstea.fr
 
 ## References
 
-[1] Louail *et al.* (2015) [Crowdsourcing the Robin Hood effect in the city.](http://). *Arxiv e-print*, arXiv: .
+[1] Louail *et al.* (2015) [Crowdsourcing the Robin Hood effect in the city.](http://arxiv.org/abs/1604.08394). *Arxiv e-print*, arXiv:1604.08394.
 
 
