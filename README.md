@@ -34,7 +34,7 @@ The algorithm has 6 parameters:
 
 ## Output
 
-The algorithm returns a 15 columns csv file with column names, **the value separator is a semicolon ";"**. Each row represents an individual:
+The algorithm returns a 19 columns csv file with column names, **the value separator is a semicolon ";"**. Each row represents an individual:
 
 1.  **ID:** ID of the individual
 2.  **NbMonths:** Number of distinct months covered by the trajectory
