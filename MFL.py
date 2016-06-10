@@ -79,16 +79,13 @@ print(" ")
 # ****************************** MAIN ***********************************************************************
 # ***********************************************************************************************************
 
-#Open the input file once to identify the first user ID
-input_file = open(wdinput)                                 
-col=input_file.readline().rstrip('\n\r').split(';')        #Column names
-attr = input_file.readline().rstrip('\n\r').split(';')     #Split the second line 
-IDold = attr[0] + "a"                                      #Create a fake ID 
-input_file.close()
-
 #Input file                                        
-input_file = open(wdinput)                                 #Open the file again
-col=input_file.readline().rstrip('\n\r').split(';')        #Column names
+input_file = open(wdinput)                                 #Open file 
+next(input_file)                                           #Skip column names
+
+input_file2 = open(wdinput)                                #Open the file again to detect the last user's position
+next(input_file2)                                          #Skip column names
+next(input_file2)                                          #Skip first position
 
 #Output file
 output_file = open(wdoutput,'w')
@@ -151,17 +148,17 @@ Whour = {}           #Dictionary containing for each location a counter and a di
 NbWhour={}           #Dictionary of distinct hours covered by the trajectory (during daytime)
 
 nbuser = 0           #Counter user
-firstline = True     #Boolean first line
-
 
 #Looping through the file line by line
 for line in input_file:
     
+    #Print number users
     if random.random() > 0.99999:
         print ("Number of users:" + " " + str(nbuser))
     
+    #User's position attributes
     attr = line.rstrip('\n\r').split(';')         #Split line
-    ID = int(attr[0])                             #Individual ID
+    ID = attr[0]                                  #Individual ID
     year = int(attr[1])                           #Year
     month = int(attr[2])                          #Month
     day = int(attr[3])                            #Day
@@ -176,126 +173,19 @@ for line in input_file:
     weekday=datetime(int(year), int(month), int(day))
     weekday=weekday.weekday()
     
+    #Next User ID to detect the last users' position and the last line
+    try:
+        attr = next(input_file2).rstrip('\n\r').split(';')
+        ID_next = attr[0]                                         #User ID                                   
+    except(StopIteration):
+        ID_next = ID + "last"                                     #Fake ID if last line
+    
+    
     #Total number of distinct months
     if (not TotMonths.__contains__(YM)): #if new month increase the counter
         NbTotMonths = NbTotMonths + 1
         TotMonths[YM] = 0
-     
-    #If new individual (always the case for the first user because of the fake first IDold)          
-    if (ID != IDold):
-        
-        #If it is not the first individual calculate and extract the output of the previous user
-        if not(firstline):
-                        
-            #Home day
-            MFLHomeDays = 'NoMFL'
-            MFLHomeDays2 = 'NoMFL'
-            NbDaysHomeMFL = 0
-            sort = sorted(Hday.items(), key=operator.itemgetter(1), reverse=True)  #Sort locations by number of days
-            if len(sort):
-                MFLHomeDays = sort[0][0]
-                NbDaysHomeMFL = sort[0][1][0]
-                if len(sort)>1:
-                    if sort[1][1][0] == sort[0][1][0]:
-                        MFLHomeDays2 = sort[1][0]
-  
-            #Home hour
-            MFLHomeHours = 'NoMFL'
-            MFLHomeHours2 = 'NoMFL'
-            NbHoursHomeMFL = 0
-            sort = sorted(Hhour.items(), key=operator.itemgetter(1), reverse=True)  #Sort locations by number of hours
-            if len(sort):
-                MFLHomeHours = sort[0][0]
-                NbHoursHomeMFL = sort[0][1][0]
-                if len(sort)>1:
-                    if sort[1][1][0] == sort[0][1][0]:
-                        MFLHomeHours2 = sort[1][0]
-
-            #Work day
-            MFLWorkDays = 'NoMFL'
-            MFLWorkDays2 = 'NoMFL'
-            NbDaysWorkMFL = 0
-            sort = sorted(Wday.items(), key=operator.itemgetter(1), reverse=True)   #Sort location by number of days
-            if len(sort):
-                MFLWorkDays = sort[0][0]
-                NbDaysWorkMFL = sort[0][1][0]
-                if len(sort)>1:
-                    if sort[1][1][0] == sort[0][1][0]:
-                        MFLWorkDays2 = sort[1][0]
-
-            #Work hour
-            MFLWorkHours = 'NoMFL'
-            MFLWorkHours2 = 'NoMFL'
-            NbHoursWorkMFL = 0
-            sort = sorted(Whour.items(), key=operator.itemgetter(1), reverse=True)  #Sort location by number of hours
-            if len(sort):
-                MFLWorkHours = sort[0][0]
-                NbHoursWorkMFL = sort[0][1][0]
-                if len(sort)>1:
-                    if sort[1][1][0] == sort[0][1][0]:
-                        MFLWorkHours2 = sort[1][0]
-                
-            #Write output
-            output_file.write(str(IDold))                                   
-            output_file.write(';')
-            output_file.write(str(NbMonths))
-            output_file.write(';')
-            output_file.write(str(NbConsMonths))
-            output_file.write(';')
-            output_file.write(str(MFLHomeDays))
-            output_file.write(';')
-            output_file.write(str(MFLHomeDays2))
-            output_file.write(';')
-            output_file.write(str(NbDaysHomeMFL))
-            output_file.write(';')
-            output_file.write(str(len(NbHday)))
-            output_file.write(';')
-            output_file.write(str(MFLHomeHours))
-            output_file.write(';')
-            output_file.write(str(MFLHomeHours2))
-            output_file.write(';')
-            output_file.write(str(NbHoursHomeMFL))
-            output_file.write(';')
-            output_file.write(str(len(NbHhour)))
-            output_file.write(';')
-            output_file.write(str(MFLWorkDays))
-            output_file.write(';')
-            output_file.write(str(MFLWorkDays2))
-            output_file.write(';')
-            output_file.write(str(NbDaysWorkMFL))
-            output_file.write(';')
-            output_file.write(str(len(NbWday)))
-            output_file.write(';')
-            output_file.write(str(MFLWorkHours))
-            output_file.write(';')
-            output_file.write(str(MFLWorkHours2))
-            output_file.write(';')
-            output_file.write(str(NbHoursWorkMFL))
-            output_file.write(';')
-            output_file.write(str(len(NbWhour)))
-            output_file.write('\n')
-            
-            #Re-initialise the variables
-            YearMonth = ()    
-            MonthMonth = ()      
-            NbConsMonthsTmp = 0  
-            NbConsMonths = 0    
-            Hday = {}          
-            NbHday={}
-            Hhour = {}         
-            NbHhour={}
-            Wday = {}          
-            NbWday={}
-            Whour = {}         
-            NbWhour={}        
-                    
-            nbuser = nbuser + 1    #count user
-            
-        #If firstline update the boolean        
-        else:
-            firstline = False
-    
-    #Store information about the current user 
+         
     #Month
     YearMonth = YearMonth + (year,)
     MonthMonth = MonthMonth + (month,)
@@ -360,102 +250,119 @@ for line in input_file:
             Wday[loc] = [1,{}]
             Wday[loc][1][YMD] = 0
             Whour[loc] = [1,{}]
-            Whour[loc][1][YMDH] = 0
-    
-    #Update ID        
-    IDold = ID
-                    
-#Calculate and write the output for the last user not taken into account during the loop
-#Home day
-MFLHomeDays = 'NoMFL'
-MFLHomeDays2 = 'NoMFL'
-NbDaysHomeMFL = 0
-sort = sorted(Hday.items(), key=operator.itemgetter(1), reverse=True)  #sort location by number of days
-if len(sort):
-    MFLHomeDays = sort[0][0]
-    NbDaysHomeMFL = sort[0][1][0]
-    if len(sort)>1:
-        if sort[1][1][0] == sort[0][1][0]:
-            MFLHomeDays2 = sort[1][0]
- 
-#Home hour
-MFLHoursDays = 'NoMFL'
-MFLHoursDays2 = 'NoMFL'
-NbHoursHomeMFL = 0
-sort = sorted(Hhour.items(), key=operator.itemgetter(1), reverse=True)  #sort location by number of hours
-if len(sort):
-    MFLHomeHours = sort[0][0]
-    NbHoursHomeMFL = sort[0][1][0]
-    if len(sort)>1:
-        if sort[1][1][0] == sort[0][1][0]:
-            MFLHomeHours2 = sort[1][0]
+            Whour[loc][1][YMDH] = 0        
+        
+     
+    #If last user's position, extract the metrics    
+    if (ID != ID_next):
+        
+        #Home day
+        MFLHomeDays = 'NoMFL'
+        MFLHomeDays2 = 'NoMFL'
+        NbDaysHomeMFL = 0
+        sort = sorted(Hday.items(), key=operator.itemgetter(1), reverse=True)  #Sort locations by number of days
+        if len(sort):
+            MFLHomeDays = sort[0][0]
+            NbDaysHomeMFL = sort[0][1][0]
+            if len(sort)>1:
+                if sort[1][1][0] == sort[0][1][0]:
+                    MFLHomeDays2 = sort[1][0]
+  
+        #Home hour
+        MFLHomeHours = 'NoMFL'
+        MFLHomeHours2 = 'NoMFL'
+        NbHoursHomeMFL = 0
+        sort = sorted(Hhour.items(), key=operator.itemgetter(1), reverse=True)  #Sort locations by number of hours
+        if len(sort):
+            MFLHomeHours = sort[0][0]
+            NbHoursHomeMFL = sort[0][1][0]
+            if len(sort)>1:
+                if sort[1][1][0] == sort[0][1][0]:
+                    MFLHomeHours2 = sort[1][0]
 
-#Work day
-MFLWorkDays = 'NoMFL'
-MFLWorkDays2 = 'NoMFL'
-NbDaysWorkMFL = 0
-sort = sorted(Wday.items(), key=operator.itemgetter(1), reverse=True)   #sort location by number of days
-if len(sort):
-    MFLWorkDays = sort[0][0]
-    NbDaysWorkMFL = sort[0][1][0]
-    if len(sort)>1:
-        if sort[1][1][0] == sort[0][1][0]:
-            MFLWorkDays2 = sort[1][0]
+        #Work day
+        MFLWorkDays = 'NoMFL'
+        MFLWorkDays2 = 'NoMFL'
+        NbDaysWorkMFL = 0
+        sort = sorted(Wday.items(), key=operator.itemgetter(1), reverse=True)   #Sort location by number of days
+        if len(sort):
+            MFLWorkDays = sort[0][0]
+            NbDaysWorkMFL = sort[0][1][0]
+            if len(sort)>1:
+                if sort[1][1][0] == sort[0][1][0]:
+                    MFLWorkDays2 = sort[1][0]
 
-#Work hour
-MFLWorkHours = 'NoMFL'
-MFLWorkHours2 = 'NoMFL'
-NbHoursWorkMFL = 0 
-sort = sorted(Whour.items(), key=operator.itemgetter(1), reverse=True)  #sort location by number of hours
-if len(sort):
-    MFLWorkHours = sort[0][0]
-    NbHoursWorkMFL = sort[0][1][0]
-    if len(sort)>1:
-        if sort[1][1][0] == sort[0][1][0]:
-            MFLWorkHours2 = sort[1][0]
-    
-#Write output
-output_file.write(str(IDold))                                   
-output_file.write(';')
-output_file.write(str(NbMonths))
-output_file.write(';')
-output_file.write(str(NbConsMonths))
-output_file.write(';')
-output_file.write(str(MFLHomeDays))
-output_file.write(';')
-output_file.write(str(MFLHomeDays2))
-output_file.write(';')
-output_file.write(str(NbDaysHomeMFL))
-output_file.write(';')
-output_file.write(str(len(NbHday)))
-output_file.write(';')
-output_file.write(str(MFLHomeHours))
-output_file.write(';')
-output_file.write(str(MFLHomeHours2))
-output_file.write(';')
-output_file.write(str(NbHoursHomeMFL))
-output_file.write(';')
-output_file.write(str(len(NbHhour)))
-output_file.write(';')
-output_file.write(str(MFLWorkDays))
-output_file.write(';')
-output_file.write(str(MFLWorkDays2))
-output_file.write(';')
-output_file.write(str(NbDaysWorkMFL))
-output_file.write(';')
-output_file.write(str(len(NbWday)))
-output_file.write(';')
-output_file.write(str(MFLWorkHours))
-output_file.write(';')
-output_file.write(str(MFLWorkHours2))
-output_file.write(';')
-output_file.write(str(NbHoursWorkMFL))
-output_file.write(';')
-output_file.write(str(len(NbWhour)))
-output_file.write('\n') 
+        #Work hour
+        MFLWorkHours = 'NoMFL'
+        MFLWorkHours2 = 'NoMFL'
+        NbHoursWorkMFL = 0
+        sort = sorted(Whour.items(), key=operator.itemgetter(1), reverse=True)  #Sort location by number of hours
+        if len(sort):
+            MFLWorkHours = sort[0][0]
+            NbHoursWorkMFL = sort[0][1][0]
+            if len(sort)>1:
+                if sort[1][1][0] == sort[0][1][0]:
+                    MFLWorkHours2 = sort[1][0]
+            
+        #Write output
+        output_file.write(str(ID))                                   
+        output_file.write(';')
+        output_file.write(str(NbMonths))
+        output_file.write(';')
+        output_file.write(str(NbConsMonths))
+        output_file.write(';')
+        output_file.write(str(MFLHomeDays))
+        output_file.write(';')
+        output_file.write(str(MFLHomeDays2))
+        output_file.write(';')
+        output_file.write(str(NbDaysHomeMFL))
+        output_file.write(';')
+        output_file.write(str(len(NbHday)))
+        output_file.write(';')
+        output_file.write(str(MFLHomeHours))
+        output_file.write(';')
+        output_file.write(str(MFLHomeHours2))
+        output_file.write(';')
+        output_file.write(str(NbHoursHomeMFL))
+        output_file.write(';')
+        output_file.write(str(len(NbHhour)))
+        output_file.write(';')
+        output_file.write(str(MFLWorkDays))
+        output_file.write(';')
+        output_file.write(str(MFLWorkDays2))
+        output_file.write(';')
+        output_file.write(str(NbDaysWorkMFL))
+        output_file.write(';')
+        output_file.write(str(len(NbWday)))
+        output_file.write(';')
+        output_file.write(str(MFLWorkHours))
+        output_file.write(';')
+        output_file.write(str(MFLWorkHours2))
+        output_file.write(';')
+        output_file.write(str(NbHoursWorkMFL))
+        output_file.write(';')
+        output_file.write(str(len(NbWhour)))
+        output_file.write('\n')
+        
+        #Re-initialise the variables
+        YearMonth = ()    
+        MonthMonth = ()      
+        NbConsMonthsTmp = 0  
+        NbConsMonths = 0    
+        Hday = {}          
+        NbHday={}
+        Hhour = {}         
+        NbHhour={}
+        Wday = {}          
+        NbWday={}
+        Whour = {}         
+        NbWhour={}        
+                
+        nbuser = nbuser + 1    #count user
 
 #Close files
 input_file.close()
+input_file2.close()
 output_file.close()
 
 #Print the total number of months
