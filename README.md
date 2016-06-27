@@ -16,9 +16,9 @@ It is important to note that the table should be **SORTED** by individual ID and
 
 1. **ID of the individual**
 2. **Year**
-3. **Month**
-4. **Day**
-5. **Hour**
+3. **Month** (1->12)
+4. **Day** (1->31)
+5. **Hour** (0->23)
 6. **ID of the geographical location** 
 
 ## Parameters
