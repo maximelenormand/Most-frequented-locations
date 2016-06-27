@@ -13,10 +13,10 @@ by the columns 2 to 5.
 It is important to note that the table must be SORTED by individual ID and by time.
    
 	1. User ID
-	2. Year
-	3. Month
-	4. Day
-	5. Hour
+	2. Year 
+	3. Month (1->12)
+	4. Day (1->31)
+	5. Hour (0->23)
 	6. ID of the geographical location 
  
 The algorithm has 6 parameters:
