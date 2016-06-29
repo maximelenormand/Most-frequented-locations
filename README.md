@@ -62,7 +62,7 @@ The algorithm returns a 19 columns csv file with column names, **the value separ
 
 You can run the code using the command:
 
-*python MFL.py input.csv output.csv 20 7 8 19*
+**python MFL.py input.csv output.csv 20 7 8 19**
 
 ## Citation
 
