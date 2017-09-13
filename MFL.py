@@ -51,7 +51,7 @@ Each row represents an individual.
         18. NbHoursWorkMFL: Number of distinct days spent in the MFL (during daytime)
         19. NbHoursWork: Number of distinct hours covered by the trajectory (during daytime)
 
-Copyright 2015 Maxime Lenormand. All rights reserved. Code under License GPLv3.
+Author: Maxime Lenormand (2015)
 """
 
 # ****************************** IMPORTS ********************************************************************
