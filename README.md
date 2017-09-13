@@ -1,9 +1,6 @@
 Extract Most Frequented Locations from individual spatio-temporal trajectories
 ========================================================================
 
- Copyright 2015 Maxime Lenormand. All rights reserved. Code under License GPLv3.
-______________________________________________________________________________________
-
 ## Description
 
 This script returns the location most frequented by an individual (called MFL) during  weekdays' daytime and nighttime
