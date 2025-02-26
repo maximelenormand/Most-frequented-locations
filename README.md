@@ -1,17 +1,21 @@
-Extract Most Frequented Locations from individual spatio-temporal trajectories
-========================================================================
+# Extract Most Frequented Locations from individual spatio-temporal trajectories
 
 ## Description
 
-This script returns the location most frequented by an individual (called MFL) during  weekdays' daytime and nighttime
-according to a certain time window. The MFL during a given time windows is defined as the  location in which 
-the individual has spent most of his/her time. In this algorithm, two scales are considered, hours and days. 
-Hopefully, for a given individual, the MFLs detected at the two scales should be the same.
+This script returns the location most frequented by an individual (called MFL) 
+during  weekdays' daytime and nighttime according to a certain time window. 
+The MFL during a given time windows is defined as the  location in which the 
+individual has spent most of his/her time. In this algorithm, two scales are 
+considered, hours and days. Hopefully, for a given individual, the MFLs 
+detected at the two scales should be the same.
 
 ## Input
 
-The algorithm takes as input a 6 columns csv file with column names, **the value separator is a semicolon ";"**. Each row of the file represents a spatio-temporal position of an individual's trajectory. The time is given by the columns 2 to 5 (year, month, day and hour).
-It is important to note that the table should be **SORTED** by individual ID and time.
+The algorithm takes as input a 6 columns csv file with column names, 
+**the value separator is a semicolon ";"**. Each row of the file represents 
+a spatio-temporal position of an individual's trajectory. The time is given 
+by the columns 2 to 5 (year, month, day and hour). It is important to note that 
+the table should be **SORTED** by individual ID and time.
 
 1. **ID of the individual**
 2. **Year**
@@ -25,7 +29,7 @@ It is important to note that the table should be **SORTED** by individual ID and
 The algorithm has 6 parameters:
 
 1. **wdinput:**  Path of the input file (ex: "input.csv")
-2. **wdoutput:** Path of the output file (ex: "outputoftheawsomemaximelenormandsalgorithm.csv")
+2. **wdoutput:** Path of the output file (ex: "output.csv")
 3. **minH:** Lower bound (included) of the night time window (ex: 20h)
 4. **maxH:** Upper bound (included) of the night time window (ex: 7h)
 5. **minW:** Lower bound (included) of the day time window (ex: 8h)
@@ -33,7 +37,8 @@ The algorithm has 6 parameters:
 
 ## Output
 
-The algorithm returns a 19 columns csv file with column names, **the value separator is a semicolon ";"**. Each row represents an individual:
+The algorithm returns a 19 columns csv file with column names, 
+**the value separator is a semicolon ";"**. Each row represents an individual:
 
 1.  **ID:** ID of the individual
 2.  **NbMonths:** Number of distinct months covered by the trajectory
@@ -63,9 +68,23 @@ You can run the code using the command:
 
 ## Citation
 
-If you use this code, please cite:
+If you use this code, please cite the following reference:
 
-Lenormand M, Louail T, Barthelemy M & Ramasco JJ (2016) [Is spatial information in ICT data reliable?](https://arxiv.org/abs/1609.03375) Spatial Accuracy 2016, Montpellier, France.
+Lenormand M, Louail T, Barthelemy M & Ramasco JJ (2016) [Is spatial information in ICT data reliable?](https://arxiv.org/abs/1609.03375) 
+Spatial Accuracy 2016, Montpellier, France.
 
 If you need help, find a bug, want to give me advice or feedback, please contact me!
-You can reach me at maxime.lenormand[at]inrae.fr
+
+## Repository mirrors
+
+This repository is mirrored on both GitLab and GitHub. You can access it via the following links:
+
+- **GitLab**: [https://gitlab.com/maximelenormand/Most-frequented-locations](https://gitlab.com/maximelenormand/Most-frequented-locations)  
+- **GitHub**: [https://github.com/maximelenormand/Most-frequented-locations](https://github.com/maximelenormand/Most-frequented-locations)  
+
+The repository is archived in Software Heritage:
+
+[![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/maximelenormand/Most-frequented-locations/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/maximelenormand/Most-frequented-locations)
+
+
+
