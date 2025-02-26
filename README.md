@@ -71,7 +71,7 @@ You can run the code using the command:
 If you use this code, please cite the following reference:
 
 Lenormand M, Louail T, Barthelemy M & Ramasco JJ (2016) [Is spatial information in ICT data reliable?](https://arxiv.org/abs/1609.03375) 
-Spatial Accuracy 2016, Montpellier, France.
+*Spatial Accuracy 2016*, Montpellier, France.
 
 If you need help, find a bug, want to give me advice or feedback, please contact me!
 
